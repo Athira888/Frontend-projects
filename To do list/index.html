@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do List</title>
+
+<style>
+    body {
+        font-family:'Times New Roman', Times, serif;
+        margin: 100px;
+        color: rgb(66, 18, 18);
+        text-align: center;
+        background-image: url("todo.jpeg");
+        background-size: cover;
+        font-size: 18px;
+        
+    }
+    .h1{
+        text-align: center;
+        font-size:25px;
+        font-family: 'Times New Roman', Times, serif;
+        margin-top: 1000px;
+        color: #6b4545;
+
+        
+
+    }
+    #taskinput {
+        width: 300px;
+        padding: 10px;
+        margin-right: 10px;
+        background-color: rgb(225, 202, 195);
+    }
+    #addtask-btn {
+        padding: 10px 20px;
+        background-color: rgb(225, 202, 195);
+        cursor:pointer;
+        border-radius: 8px;
+        color: black;
+        border-color: brown;
+
+    }
+    #taskList {
+        margin-top: 20px;
+        list-style-type: none;
+        padding: 0;
+        border-bottom: brown;
+    }
+    #taskList li {
+        padding: 10px;
+        border-bottom: 1px solid #6b4545;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        text-align: left;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        background-color: rgba(207, 180, 154, 0.454);
+
+    }
+    #addtask-btn:hover{
+        background-color: brown;
+        color: whitesmoke;
+    }
+    #taskList li:hover{
+        background-color: brown;
+        color: whitesmoke;
+        
+
+    }
+    .delebtn{
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font: size 18px;
+    }
+</style>
+</head>
+
+<body>
+    <h1>My To-Do List</h1>
+    <div class="input-container">
+        <input type="text" id="taskinput" placeholder="Enter a new task">
+        <button id="addtask-btn">Add Task</button>
+    </div>
+    <ul id="taskList"></ul> 
+    <script>
+    var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function rendertasks(){
+    var tasklist = document.getElementById('taskList');  // FIXED
+    tasklist.innerHTML = "";
+
+    tasks.forEach(function(task, index){
+        var li = document.createElement('li');
+        li.textContent = task.text;
+
+        if(task.completed){
+            li.style.textDecoration = "line-through";
+            li.style.opacity = "0.6";
+        }
+
+        li.addEventListener('click', function(){
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            rendertasks();
+        });
+
+        var delbtn = document.createElement('button');
+        delbtn.textContent = "delete";
+        delbtn.className = "delebtn";
+
+        delbtn.addEventListener('click', function(e){
+            e.stopPropagation();
+            tasks.splice(index, 1);
+            saveTasks();
+            rendertasks();
+        });
+
+        li.appendChild(delbtn);
+        tasklist.appendChild(li);
+    });
+}
+
+function addtask(){
+    var input = document.getElementById('taskinput');
+    var tasktext = input.value.trim();
+
+    if(tasktext !== ""){
+        tasks.push({ text: tasktext, completed: false });
+        saveTasks();
+        rendertasks();
+        input.value = "";
+    }
+}
+
+function saveTasks(){
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+rendertasks();
+document.getElementById('addtask-btn').addEventListener('click', addtask);
+
+</script>
+
+</body>
+</html>
