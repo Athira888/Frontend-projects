@@ -58,6 +58,9 @@
         margin-right: auto;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         background-color: rgba(207, 180, 154, 0.454);
+         display: flex;
+        justify-content: space-between;
+        align-items: center;
 
     }
     #addtask-btn:hover{
@@ -109,7 +112,7 @@ function rendertasks(){
         });
 
         var delbtn = document.createElement('button');
-        delbtn.textContent = "delete";
+        delbtn.textContent = "🗑️";
         delbtn.className = "delebtn";
 
         delbtn.addEventListener('click', function(e){
