@@ -46,7 +46,7 @@ function changeColor() {
     changeInterval = setInterval(() => {
         currentColor = colors[Math.floor(Math.random() * colors.length)];
         
-        if (Math.random() < 0.4) {
+        if (Math.random() < 0.65) {
             boxColor = currentColor;
         } else {
             let diff = colors.filter(c => c !== currentColor);
@@ -56,7 +56,7 @@ function changeColor() {
         $("#msg").text("Click only if it MATCHES only!  : " + currentColor.toUpperCase());
         $("#box").css("background", boxColor);
 
-    }, 2000);
+    }, 1000);
 }
 
 $("#box").click(function () {
