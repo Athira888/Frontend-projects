@@ -14,6 +14,7 @@ function attack(){
         e.style.top=(e.offsetTop+8)+"px";
         if(checkHit()){
             msg.innerText="Oopsies, You got hit 😔";
+            msg.style.color="red";
             clearInterval(fall);
             
         }
